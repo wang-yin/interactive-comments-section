@@ -11,3 +11,12 @@ export const getData = async () => {
     return []
   }
 }
+
+export const addComment = async (newComment) => {
+  try {
+    const response  = await axios.post(API_BASE_URL, newComment)
+     return response.data;
+  } catch(error) {
+    console.log(error)
+  }
+}

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react"
-import { getData } from "../../api/api"
+import { getData, addComment as apiAddComment } from "../../api/api"
 
 export const CommentContext = createContext()
 
@@ -16,8 +16,13 @@ export default function CommentProvider({ children }) {
     fetchData()
   }, [])
 
+  const addComment = async  (newComment) => {
+    const createdComment = await apiAddComment(newComment)
+    if(createdComment) setComments((prev) => [...prev, createdComment])
+  }
+
   return (
-    <CommentContext.Provider value={{comments, setComments}}>
+    <CommentContext.Provider value={{comments, addComment}}>
       {children}
     </CommentContext.Provider>
   )

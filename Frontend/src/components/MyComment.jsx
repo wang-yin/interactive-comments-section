@@ -1,11 +1,8 @@
 import amyrobson from "/images/avatars/image-amyrobson.webp";
 import reply from "/images/icon-reply.svg";
-import plus from "/images/icon-plus.svg";
-import minus from "/images/icon-minus.svg";
-import Delete from "/images/icon-delete.svg";
-import edit from "/images/icon-edit.svg";
 
-function NewComment() {
+
+function MyComment() {
   return(
     
     <div className="bg-White rounded-[10px] py-[1rem] px-[1.02rem] flex flex-col gap-[1rem] lg:flex-row lg:px-[1.5rem] lg:py-[1.45rem] lg:gap-[1.5rem] ">
@@ -101,4 +98,4 @@ function NewComment() {
   )
 }
 
-export default NewComment
+export default MyComment
