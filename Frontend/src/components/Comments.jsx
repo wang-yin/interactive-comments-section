@@ -3,6 +3,7 @@ import MyComment from "./MyComment";
 import CommentItem from "./CommentItem";
 import { useContext } from "react";
 import { CommentContext } from "../components/store/CommentContext";
+import NewReply from "./newReply";
 
 function Comments() {
   const { comments } = useContext(CommentContext);
@@ -10,23 +11,43 @@ function Comments() {
 
   return (
     <>
-      {comments.map((comment) =>
-      
-        comment.replies.length > 0 ? (
-          <>
-            <CommentItem comment={comment}/>
-            {comment.replies.map((reply) => {
-              return <Reply key={reply.id} />;
-            })}
-          </>
-        ) : (
-          <CommentItem comment={comment}/>
-        )
-      )}
+      {comments.map((comment) => {
+        const isMyComment = comment.user.username === currentUser;
+        if (comment.replies.length > 0) {
+          return (
+            <>
+              {isMyComment ? (
+                <>
+                  <MyComment comment={comment} />
+                  {comment.replies.map((reply) => {
+                    return <Reply key={reply.id} />;
+                  })}
+                </>
+              ) : (
+                <>
+                  <CommentItem comment={comment} />
+                  {comment.replies.map((reply) => {
+                    return <Reply key={reply.id} />;
+                  })}
+                </>
+              )}
+            </>
+          );
+        } else {
+          return (
+            <>
+              {isMyComment ? (
+                <MyComment comment={comment} />
+              ) : (
+                <CommentItem comment={comment} />
+              )}
+            </>
+          );
+        }
+      })}
 
       {/* 註解 */}
 
-      <MyComment />
     </>
   );
 }

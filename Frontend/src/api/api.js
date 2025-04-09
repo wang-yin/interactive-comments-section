@@ -14,7 +14,8 @@ export const getData = async () => {
 
 export const addComment = async (newComment) => {
   try {
-    const response  = await axios.post(API_BASE_URL, newComment)
+    const response  = await axios.post(`${API_BASE_URL}/create`, newComment)
+    console.log(newComment)
      return response.data;
   } catch(error) {
     console.log(error)

@@ -5,7 +5,7 @@ export const CommentContext = createContext()
 
 export default function CommentProvider({ children }) {
   const [comments, setComments] = useState([])
-  console.log(comments)
+  console.log("comments", comments)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +18,7 @@ export default function CommentProvider({ children }) {
 
   const addComment = async  (newComment) => {
     const createdComment = await apiAddComment(newComment)
+    console.log("從後端回來的資料：", createdComment);
     if(createdComment) setComments((prev) => [...prev, createdComment])
   }
 

@@ -20,11 +20,13 @@ function Textarea() {
       },
       replies: []
     }
+    console.log("newComment",newComment)
 
     await addComment(newComment)
     setContent("")
   }
 
+  
   return (
     <form className="px-[1rem] pt-[1rem] pb-[.8rem] bg-White rounded-[10px] lg:flex lg:items-start lg:px-[1.5rem] lg:pt-[1.3rem] lg:gap-4.5 lg:pb-[1.2rem]" onSubmit={handleSubmit}>
       <div className="hidden lg:w-13.5 lg:block lg:mt-[.3rem]">
