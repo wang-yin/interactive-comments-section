@@ -3,7 +3,7 @@ import MyComment from "./MyComment";
 import CommentItem from "./CommentItem";
 import { useContext } from "react";
 import { CommentContext } from "../components/store/CommentContext";
-import NewReply from "./newReply";
+import MyReply from "./MyReply";
 
 function Comments() {
   const { comments } = useContext(CommentContext);
@@ -17,18 +17,17 @@ function Comments() {
           return (
             <>
               {isMyComment ? (
-                <>
-                  <MyComment comment={comment} />
-                  {comment.replies.map((reply) => {
-                    return <Reply key={reply.id} />;
-                  })}
-                </>
+                <MyComment comment={comment} />
               ) : (
                 <>
                   <CommentItem comment={comment} />
-                  {comment.replies.map((reply) => {
-                    return <Reply key={reply.id} />;
-                  })}
+                  {comment.replies.map((reply) => 
+                    reply.user.username === currentUser ? (
+                      <MyReply key={reply.id} reply={reply}/>
+                    ) : (
+                      <Reply key={reply.id} reply={reply}/>
+                    )
+                  )}
                 </>
               )}
             </>
@@ -37,9 +36,9 @@ function Comments() {
           return (
             <>
               {isMyComment ? (
-                <MyComment comment={comment} />
+                <MyComment comment={comment}/>
               ) : (
-                <CommentItem comment={comment} />
+                <CommentItem comment={comment}/>
               )}
             </>
           );

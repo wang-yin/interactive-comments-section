@@ -45,7 +45,7 @@ function Textarea() {
         <div>
           <button
             type="submit"
-            className="px-[1.95rem] bg-Moderate-blue h-[48px] rounded-[8px] text-White cursor-pointer hover:opacity-60"
+            className="px-[1.95rem] bg-Moderate-blue h-[48px] rounded-[8px] text-White cursor-pointer hover:opacity-60 font-semibold"
           >
             SEND
           </button>

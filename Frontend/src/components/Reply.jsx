@@ -1,10 +1,9 @@
-import amyrobson from "/images/avatars/image-amyrobson.webp";
-import reply from "/images/icon-reply.svg";
+import replyicon from "/images/icon-reply.svg";
 import plus from "/images/icon-plus.svg";
 import minus from "/images/icon-minus.svg";
 import Textarea from "./Textarea";
 
-function Reply() {
+function Reply({ reply }) {
   return (
     <>
     <div className="lg:pl-[2.6rem]">
@@ -12,26 +11,26 @@ function Reply() {
         <div className="bg-White rounded-[10px] p-[1rem] flex flex-col gap-[1rem] lg:flex-row lg:p-[1.6rem] lg:gap-[1.5rem]">
             <div className="hidden lg:flex lg:flex-col lg:bg-Very-light-gray lg:px-[.6rem] lg:items-center lg:rounded-[10px] lg:h-[6.3rem] lg:py-[.6rem] lg:gap-[1.1rem]">
               <button>
-                <img src={plus}></img>
+                <img src={plus} alt="plus"></img>
               </button>
               <p className="text-Moderate-blue font-fw-500 w-[20px] text-[1.05rem] text-center">
-                4
+                {reply.score}
               </p>
               <button>
-                <img src={minus}></img>
+                <img src={minus} alt="minus"></img>
               </button>
             </div>
           
           <div>
             <div className="flex items-center gap-[1rem] w-full">
             <div className="w-[32px]">
-              <img src={amyrobson}></img>
+              <img src={reply.user.image.webp}></img>
             </div>
-            <p className="font-fw-500">ramsesmiron</p>
-            <p className="text-Grayish-Blue font-fw-400">1 week ago</p>
-            <div className="hidden lg:flex lg:items-center lg:gap-[.5rem] lg:ml-auto ">
+            <p className="font-fw-500">{reply.user.username}</p>
+            <p className="text-Grayish-Blue font-fw-400">{reply.createdAt}</p>
+            <div className="hidden lg:flex lg:items-center lg:gap-[.5rem] lg:ml-auto cursor-pointer hover:opacity-60">
               <div>
-                <img src={reply}></img>
+                <img src={replyicon} alt="reply"></img>
               </div>
               <p className="text-Moderate-blue font-fw-500 text-[1.02rem]">
                 Reply
@@ -41,9 +40,7 @@ function Reply() {
           <div className="pt-[1rem]">
             <p className="text-Grayish-Blue text-[1.005rem] leading-[1.475]">
               <a className="text-Moderate-blue font-fw-500">@maxblagun</a>{" "}
-              If you're still new, I'd recommend focusing on the fundamentals of
-              HTML, CSS, and JS before considering React. It's very tempting to
-              jump ahead but lay a solid foundation first.
+              {reply.content}
             </p>
           </div>
           </div>
@@ -51,18 +48,18 @@ function Reply() {
           <div className="flex justify-between mt-[.15rem] lg:hidden">
             <div className="flex items-center justify-center rounded-[10px] bg-Very-light-gray py-[.45rem] px-[.85rem] gap-[1rem]">
               <button>
-                <img src={plus}></img>
+                <img src={plus} alt="plus"></img>
               </button>
               <p className="text-Moderate-blue font-fw-500 w-[20px] text-[1.05rem] text-center">
-                4
+                {reply.score}
               </p>
               <button>
-                <img src={minus}></img>
+                <img src={minus} alt="minus"></img>
               </button>
             </div>
-            <div className="flex items-center gap-[.5rem]">
+            <div className="flex items-center gap-[.5rem] cursor-pointer hover:opacity-60">
               <div>
-                <img src={reply}></img>
+                <img src={replyicon} alt="reply"></img>
               </div>
               <p className="text-Moderate-blue font-fw-500 text-[1.02rem]">
                 Reply
