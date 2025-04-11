@@ -26,7 +26,7 @@ function Reply({ reply }) {
             <div className="w-[32px]">
               <img src={reply.user.image.webp}></img>
             </div>
-            <p className="font-fw-500">{reply.user.username}</p>
+            <a href="#" className="font-fw-500">{reply.user.username}</a>
             <p className="text-Grayish-Blue font-fw-400">{reply.createdAt}</p>
             <div className="hidden lg:flex lg:items-center lg:gap-[.5rem] lg:ml-auto cursor-pointer hover:opacity-60">
               <div>
@@ -39,7 +39,7 @@ function Reply({ reply }) {
           </div>
           <div className="pt-[1rem]">
             <p className="text-Grayish-Blue text-[1.005rem] leading-[1.475]">
-              <a className="text-Moderate-blue font-fw-500">@maxblagun</a>{" "}
+              <a href="#" className="text-Moderate-blue font-fw-500">@{reply.replyingTo}</a>{" "}
               {reply.content}
             </p>
           </div>

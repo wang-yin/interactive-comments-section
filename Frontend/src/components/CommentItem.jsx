@@ -1,6 +1,9 @@
-import reply from "/images/icon-reply.svg";
+import replyicon from "/images/icon-reply.svg";
+import ReplyTextarea from "./ReplyTextarea";
+import { useState } from "react";
 
 function CommentItem({ comment }) {
+  const [isReply, setIsReply] = useState(false)
 
   return (
     <>
@@ -39,11 +42,11 @@ function CommentItem({ comment }) {
           <div className="w-[32px]">
             <img src={comment.user.image.webp} alt="avatars"></img>
           </div>
-          <p className="font-fw-500">{comment.user.username}</p>
+          <a href="#" className="font-fw-500">{comment.user.username}</a>
           <p className="text-Grayish-Blue font-fw-400">{comment.createdAt}</p>
-          <div className="hidden lg:flex lg:items-center lg:gap-[.5rem] lg:ml-auto cursor-pointer hover:opacity-60">
+          <div className="hidden lg:flex lg:items-center lg:gap-[.5rem] lg:ml-auto cursor-pointer hover:opacity-60" onClick={() => setIsReply(prev => !prev)}>
             <div>
-              <img src={reply} alt="reply"></img>
+              <img src={replyicon} alt="reply"></img>
             </div>
             <p className="text-Moderate-blue font-fw-500 text-[1.02rem]">
               Reply
@@ -82,14 +85,15 @@ function CommentItem({ comment }) {
             </svg>
           </button>
         </div>
-        <div className="flex items-center gap-[.5rem] cursor-pointer hover:opacity-60">
+        <div className="flex items-center gap-[.5rem] cursor-pointer hover:opacity-60" onClick={() => setIsReply(prev => !prev)}>
           <div>
-            <img src={reply} alt="reply"></img>
+            <img src={replyicon} alt="reply"></img>
           </div>
           <p className="text-Moderate-blue font-fw-500 text-[1.02rem]">Reply</p>
         </div>
       </div>
     </div>
+    {isReply && (<ReplyTextarea comment={comment} setIsReply={setIsReply}/>)}
     </>
   );
 }

@@ -4,6 +4,7 @@ import {
   addComment as apiAddComment,
   deleteData as apiDeleteData,
   editData,
+  apiAddReply,
 } from "../../api/api";
 
 export const CommentContext = createContext();
@@ -43,8 +44,34 @@ export default function CommentProvider({ children }) {
     }
   };
 
+  const addReply = async (commentId, newReply) => {
+    try {
+      const res = await apiAddReply(commentId, newReply);
+      if (res) {
+        setComments((prev) =>
+          prev.map((comment) => {
+            if (comment.id === commentId) {
+              const currentReplies = Array.isArray(comment.replies)
+                ? comment.replies
+                : []; // ← 如果 undefined 就給空陣列
+              return {
+                ...comment,
+                replies: [...currentReplies, res],
+              };
+            }
+            return comment;
+          })
+        );
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <CommentContext.Provider value={{ comments, addComment, deleteData, edit }}>
+    <CommentContext.Provider
+      value={{ comments, addComment, deleteData, edit, addReply }}
+    >
       {children}
     </CommentContext.Provider>
   );

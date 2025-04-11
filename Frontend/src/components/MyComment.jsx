@@ -49,7 +49,7 @@ function MyComment({ comment }) {
             <div className="w-[32px]">
               <img src={comment.user.image.webp}></img>
             </div>
-            <p className="font-fw-500 ml-4">{comment.user.username}</p>
+            <a href="#" className="font-fw-500 ml-4">{comment.user.username}</a>
             <div className="bg-Moderate-blue ml-[.5rem] px-[.45rem] h-[1.2rem] rounded-[3px] mr-4">
               <p className="text-[.8rem] text-White">you</p>
             </div>

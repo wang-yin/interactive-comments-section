@@ -1,4 +1,3 @@
-import amyrobson from "/images/avatars/image-amyrobson.webp";
 import plus from "/images/icon-plus.svg";
 import minus from "/images/icon-minus.svg";
 import Delete from "/images/icon-delete.svg";
@@ -27,7 +26,7 @@ function NewReply({ reply }) {
               <div className="w-[32px]">
                 <img src={reply.user.image.webp}></img>
               </div>
-              <p className="font-fw-500 ml-4">{reply.user.username}</p>
+              <a href="#" className="font-fw-500 ml-4">{reply.user.username}</a>
               <div className="bg-Moderate-blue ml-[.5rem] px-[.45rem] h-[1.2rem] rounded-[3px] mr-4">
                 <p className="text-[.8rem] text-White">you</p>
               </div>
@@ -53,7 +52,7 @@ function NewReply({ reply }) {
             </div>
             <div className="pt-[1rem]">
               <p className="text-Grayish-Blue text-[1.005rem] leading-[1.475]">
-                <a className="text-Moderate-blue font-fw-500">@ramsesmiron</a> {reply.content}
+                <a href="#" className="text-Moderate-blue font-fw-500">@{reply.replyingTo}</a> {reply.content}
               </p>
             </div>
           </div>

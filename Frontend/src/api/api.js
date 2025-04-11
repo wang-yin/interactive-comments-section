@@ -38,5 +38,13 @@ export const editData = async (data ,id) => {
   } catch (error) {
     console.log(error)
   }
-
 }
+
+export const apiAddReply = async (commentId, newReply) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/reply/${commentId}`, newReply);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
