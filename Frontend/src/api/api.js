@@ -57,3 +57,12 @@ export const apiDeleteReplyData = async (commentId, replyId) => {
     console.log(error);
   }
 }
+
+export const apiEditReply = async (newContent, commentId, replyId) => {
+  try {
+    const response = await axios.patch(`${API_BASE_URL}/reply/edit/${commentId}/${replyId}`, { content: newContent })
+    return response.data
+  } catch (error) {
+    console.log(error);
+  }
+}

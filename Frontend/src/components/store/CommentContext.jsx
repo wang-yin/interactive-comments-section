@@ -6,6 +6,7 @@ import {
   editData,
   apiAddReply,
   apiDeleteReplyData,
+  apiEditReply,
 } from "../../api/api";
 
 export const CommentContext = createContext();
@@ -90,6 +91,27 @@ export default function CommentProvider({ children }) {
     }
   };
 
+  const editReply = async (newContent, commentId, replyId) => {
+    const result = await apiEditReply(newContent, commentId, replyId);
+    if (result) {
+      setComments((prev) =>
+        prev.map((comment) => {
+          if (comment.id === commentId) {
+            return {
+              ...comment,
+              replies: comment.replies.map((reply) =>
+                reply.id === replyId
+                  ? { ...reply, content: newContent } 
+                  : reply
+              ),
+            };
+          }
+          return comment;
+        })
+      );
+    }
+  };
+
   return (
     <CommentContext.Provider
       value={{
@@ -99,6 +121,7 @@ export default function CommentProvider({ children }) {
         edit,
         addReply,
         deleteReplyData,
+        editReply,
       }}
     >
       {children}

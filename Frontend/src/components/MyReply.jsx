@@ -5,10 +5,19 @@ import edit from "/images/icon-edit.svg";
 import Textarea from "./Textarea";
 import Modal from "./Modal";
 import DeleteComponent from "./DeleteReply";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { CommentContext } from "./store/CommentContext";
 
 function NewReply({ reply, commentId }) {
   const [isDelete, setIsDelete] = useState(false)
+  const [isEdit, setIsEdit] = useState(false);
+  const [editedContent, setEditedContent] = useState(reply.content);
+  const { editReply } = useContext(CommentContext)
+
+  const handleEdit = async () => {
+    await editReply(editedContent, commentId, reply.id)
+    setIsEdit(false);
+  }
 
   return (
     <>
@@ -55,7 +64,7 @@ function NewReply({ reply, commentId }) {
                       Delete
                     </p>
                   </div>
-                  <div className="flex items-center gap-[.5rem] cursor-pointer hover:opacity-60">
+                  <div className="flex items-center gap-[.5rem] cursor-pointer hover:opacity-60" onClick={() => setIsEdit(prev => !prev)}>
                     <div>
                       <img src={edit} alt="edit"></img>
                     </div>
@@ -66,9 +75,16 @@ function NewReply({ reply, commentId }) {
                 </div>
               </div>
               <div className="pt-[1rem]">
+              {isEdit ? (
+                <div className="flex flex-col items-end gap-4">
+                <textarea className="w-full resize-none rounded-lg border border-[var(--color-light-gray)] bg-White p-3 px-6 text-base font-normal text-Grayish-Blue focus-visible:outline-2 focus-visible:outline-Moderate-blue" value={editedContent} onChange={(e) => setEditedContent(e.target.value)}>{reply.content}</textarea>
+                <button className="py-3 font-semibold uppercase text-base text-White rounded-lg transition-opacity duration-300 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 hover:opacity-60 bg-Moderate-blue min-w-[104px] px-5 focus-visible:outline-Moderate-blue" onClick={handleEdit}>Update</button>
+                </div>
+              ) : (
                 <p className="text-Grayish-Blue text-[1.005rem] leading-[1.475]">
                   <a href="#" className="text-Moderate-blue font-fw-500">@{reply.replyingTo}</a> {reply.content}
                 </p>
+              )}
               </div>
             </div>
 
@@ -93,7 +109,7 @@ function NewReply({ reply, commentId }) {
                     Delete
                   </p>
                 </div>
-                <div className="flex items-center gap-[.5rem]">
+                <div className="flex items-center gap-[.5rem]" onClick={() => setIsEdit(prev => !prev)}>
                   <div className="cursor-pointer hover:opacity-60">
                     <img src={edit} alt="edit"></img>
                   </div>
