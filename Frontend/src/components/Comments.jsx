@@ -23,9 +23,9 @@ function Comments() {
                   <CommentItem comment={comment} />
                   {comment.replies.map((reply) => 
                     reply.user.username === currentUser ? (
-                      <MyReply key={reply.id} reply={reply}/>
+                      <MyReply key={reply.id} reply={reply} commentId={comment.id}/>
                     ) : (
-                      <Reply key={reply.id} reply={reply}/>
+                      <Reply key={reply.id} reply={reply} commentId={comment.id}/>
                     )
                   )}
                 </>

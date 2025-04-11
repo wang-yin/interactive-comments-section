@@ -5,6 +5,7 @@ import {
   deleteData as apiDeleteData,
   editData,
   apiAddReply,
+  apiDeleteReplyData,
 } from "../../api/api";
 
 export const CommentContext = createContext();
@@ -24,7 +25,6 @@ export default function CommentProvider({ children }) {
 
   const addComment = async (newComment) => {
     const createdComment = await apiAddComment(newComment);
-    console.log("從後端回來的資料：", createdComment);
     if (createdComment) setComments((prev) => [...prev, createdComment]);
   };
 
@@ -53,7 +53,7 @@ export default function CommentProvider({ children }) {
             if (comment.id === commentId) {
               const currentReplies = Array.isArray(comment.replies)
                 ? comment.replies
-                : []; // ← 如果 undefined 就給空陣列
+                : [];
               return {
                 ...comment,
                 replies: [...currentReplies, res],
@@ -68,9 +68,38 @@ export default function CommentProvider({ children }) {
     }
   };
 
+  const deleteReplyData = async (commentId, replyId) => {
+    try {
+      const result = await apiDeleteReplyData(commentId, replyId);
+      if (result) {
+        setComments((prev) =>
+          prev.map((comment) =>
+            comment.id === commentId
+              ? {
+                  ...comment,
+                  replies: comment.replies.filter(
+                    (reply) => reply.id !== replyId
+                  ),
+                }
+              : comment
+          )
+        );
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <CommentContext.Provider
-      value={{ comments, addComment, deleteData, edit, addReply }}
+      value={{
+        comments,
+        addComment,
+        deleteData,
+        edit,
+        addReply,
+        deleteReplyData,
+      }}
     >
       {children}
     </CommentContext.Provider>

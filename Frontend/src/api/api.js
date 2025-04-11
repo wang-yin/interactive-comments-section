@@ -48,3 +48,12 @@ export const apiAddReply = async (commentId, newReply) => {
     console.log(error);
   }
 };
+
+export const apiDeleteReplyData = async (commentId, replyId) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/reply/${commentId}/${replyId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
