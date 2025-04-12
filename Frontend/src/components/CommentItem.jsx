@@ -1,9 +1,15 @@
 import replyicon from "/images/icon-reply.svg";
 import ReplyTextarea from "./ReplyTextarea";
-import { useState } from "react";
+import { CommentContext } from "./store/CommentContext";
+import { useState, useContext } from "react";
+import dayjs from "dayjs"
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(relativeTime)
 
 function CommentItem({ comment }) {
   const [isReply, setIsReply] = useState(false)
+  const { updateCommentScore } = useContext(CommentContext)
 
   return (
     <>
@@ -12,7 +18,7 @@ function CommentItem({ comment }) {
       className="bg-White rounded-[10px] py-[1rem] px-[1.02rem] flex flex-col gap-[1rem] lg:flex-row lg:px-[1.5rem] lg:py-[1.45rem] lg:gap-[1.5rem] "
     >
       <div className="hidden lg:flex lg:flex-col lg:bg-Very-light-gray lg:px-[.6rem] lg:items-center lg:rounded-[10px] lg:h-[6.3rem] lg:py-[.6rem] lg:gap-[1.1rem]">
-        <button className="cursor-pointer group">
+        <button className="cursor-pointer group" onClick={() => updateCommentScore(comment.id, 1)}>
           <svg
             width="11"
             height="11"
@@ -25,7 +31,7 @@ function CommentItem({ comment }) {
         <p className="text-Moderate-blue font-fw-500 w-[20px] text-[1.05rem] text-center">
           {comment.score}
         </p>
-        <button className="cursor-pointer group">
+        <button className="cursor-pointer group" onClick={() => updateCommentScore(comment.id, -1)}>
           <svg
             width="11"
             height="3"
@@ -43,7 +49,7 @@ function CommentItem({ comment }) {
             <img src={comment.user.image.webp} alt="avatars"></img>
           </div>
           <a href="#" className="font-fw-500">{comment.user.username}</a>
-          <p className="text-Grayish-Blue font-fw-400">{comment.createdAt}</p>
+          <p className="text-Grayish-Blue font-fw-400">{dayjs(comment.createdAt).fromNow()}</p>
           <div className="hidden lg:flex lg:items-center lg:gap-[.5rem] lg:ml-auto cursor-pointer hover:opacity-60" onClick={() => setIsReply(prev => !prev)}>
             <div>
               <img src={replyicon} alt="reply"></img>
@@ -61,7 +67,7 @@ function CommentItem({ comment }) {
 
       <div className="flex justify-between lg:hidden">
         <div className="flex items-center justify-center rounded-[10px] bg-Very-light-gray py-[.45rem] px-[.85rem] gap-[1rem] ">
-          <button>
+          <button onClick={() => updateCommentScore(comment.id, 1)}>
             <svg
               width="11"
               height="11"
@@ -74,7 +80,7 @@ function CommentItem({ comment }) {
           <p className="text-Moderate-blue font-fw-500 w-[20px] text-[1.05rem] text-center">
             {comment.score}
           </p>
-          <button>
+          <button onClick={() => updateCommentScore(comment.id, -1)}>
             <svg
               width="11"
               height="3"

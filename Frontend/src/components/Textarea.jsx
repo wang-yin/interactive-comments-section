@@ -20,7 +20,6 @@ function Textarea() {
       },
       replies: []
     }
-    console.log("newComment",newComment)
 
     await addComment(newComment)
     setContent("")

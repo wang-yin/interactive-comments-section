@@ -2,36 +2,53 @@ import juliusomo from "/images/avatars/image-juliusomo.webp";
 import { useState, useContext } from "react";
 import { CommentContext } from "./store/CommentContext";
 
-function ReplyTextarea({ comment, setIsReply }) {
+function ReplyTextarea({ comment, setIsReply, reply }) {
   const [replyContent, setReplyContent] = useState("");
-  const { addReply } = useContext(CommentContext); 
+  const { addReply } = useContext(CommentContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (replyContent.trim() === "") return;
 
-    const newReply = {
-      content: replyContent,
-      createdAt: new Date().toISOString(),
-      score: 0,
-      replyingTo: comment.user.username, 
-      user: {
-        username: "juliusomo",
-        image: {
-          webp: "images/avatars/image-juliusomo.webp"
-        }
-      }
-    };
+    let newReply = {}
 
-    await addReply(comment.id, newReply); 
+    if (reply) {
+      newReply = {
+        content: replyContent,
+        createdAt: new Date().toISOString(),
+        score: 0,
+        replyingTo: reply.user.username,
+        user: {
+          username: "juliusomo",
+          image: {
+            webp: "images/avatars/image-juliusomo.webp",
+          },
+        },
+      };
+    } else {
+      newReply = {
+        content: replyContent,
+        createdAt: new Date().toISOString(),
+        score: 0,
+        replyingTo: comment.user.username,
+        user: {
+          username: "juliusomo",
+          image: {
+            webp: "images/avatars/image-juliusomo.webp",
+          },
+        },
+      };
+    }
+    await addReply(comment.id, newReply);
     setReplyContent("");
     setIsReply(false);
   };
 
-  
   return (
-    <form className="px-[1rem] pt-[1rem] pb-[.8rem] bg-White rounded-[10px] lg:flex lg:items-start lg:px-[1.5rem] lg:pt-[1.3rem] lg:gap-4.5 lg:pb-[1.2rem]" onSubmit={handleSubmit}>
+    <form
+      className="px-[1rem] pt-[1rem] pb-[.8rem] bg-White rounded-[10px] lg:flex lg:items-start lg:px-[1.5rem] lg:pt-[1.3rem] lg:gap-4.5 lg:pb-[1.2rem]"
+      onSubmit={handleSubmit}
+    >
       <div className="hidden lg:w-13.5 lg:block lg:mt-[.3rem]">
         <img src={juliusomo} alt="juliusomo"></img>
       </div>

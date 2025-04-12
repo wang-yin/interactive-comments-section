@@ -1,4 +1,3 @@
-import "./App.css";
 import Comments from "./components/Comments";
 import Textarea from "./components/Textarea";
 import CommentProvider from "./components/store/CommentContext";

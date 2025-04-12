@@ -6,12 +6,16 @@ import { useState, useContext } from "react";
 import { CommentContext } from "./store/CommentContext";
 import Modal from "./Modal";
 import DeleteComponent from "./Delete";
+import dayjs from "dayjs"
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(relativeTime)
 
 function MyComment({ comment }) {
   const [isDelete, setIsDelete] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
-  const { edit } = useContext(CommentContext)
+  const { edit, updateCommentScore } = useContext(CommentContext)
 
   const handleEdit = async () => {
     await edit(editedContent, comment.id)
@@ -33,13 +37,13 @@ function MyComment({ comment }) {
         key={comment.id}
       >
         <div className="hidden lg:flex lg:flex-col lg:bg-Very-light-gray lg:px-[.6rem] lg:items-center lg:rounded-[10px] lg:h-[6.3rem] lg:py-[.6rem] lg:gap-[1.1rem]">
-          <button>
+          <button className="cursor-pointer" onClick={() => updateCommentScore(comment.id, 1)}>
             <img src={plus} alt="plus"></img>
           </button>
           <p className="text-Moderate-blue font-fw-500 w-[20px] text-[1.05rem] text-center">
             {comment.score}
           </p>
-          <button>
+          <button className="cursor-pointer" onClick={() => updateCommentScore(comment.id, -1)}>
             <img src={minus} alt="minus"></img>
           </button>
         </div>
@@ -53,7 +57,7 @@ function MyComment({ comment }) {
             <div className="bg-Moderate-blue ml-[.5rem] px-[.45rem] h-[1.2rem] rounded-[3px] mr-4">
               <p className="text-[.8rem] text-White">you</p>
             </div>
-            <p className="text-Grayish-Blue font-fw-400">{comment.createdAt}</p>
+            <p className="text-Grayish-Blue font-fw-400">{dayjs(comment.createdAt).fromNow()}</p>
             <div className="hidden lg:flex lg:items-center lg:gap-[1.5rem] lg:ml-auto ">
               <div
                 className="flex items-center gap-[.5rem] cursor-pointer hover:opacity-60"
@@ -95,13 +99,13 @@ function MyComment({ comment }) {
 
         <div className="flex justify-between mt-[.15rem] lg:hidden">
           <div className="flex items-center justify-center rounded-[10px] bg-Very-light-gray py-[.45rem] px-[.85rem] gap-[1rem]">
-            <button>
+            <button className="cursor-pointer" onClick={() => updateCommentScore(comment.id, 1)}>
               <img src={plus} alt="plus"></img>
             </button>
             <p className="text-Moderate-blue font-fw-500 w-[20px] text-[1.05rem] text-center">
               {comment.score}
             </p>
-            <button>
+            <button className="cursor-pointer" onClick={() => updateCommentScore(comment.id, -1)}>
               <img src={minus} alt="minus"></img>
             </button>
           </div>

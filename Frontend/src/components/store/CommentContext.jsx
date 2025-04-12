@@ -7,13 +7,14 @@ import {
   apiAddReply,
   apiDeleteReplyData,
   apiEditReply,
+  apiUpdateCommentScore,
+  apiUpdateReplyScore
 } from "../../api/api";
 
 export const CommentContext = createContext();
 
 export default function CommentProvider({ children }) {
   const [comments, setComments] = useState([]);
-  console.log("comments", comments);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -100,9 +101,7 @@ export default function CommentProvider({ children }) {
             return {
               ...comment,
               replies: comment.replies.map((reply) =>
-                reply.id === replyId
-                  ? { ...reply, content: newContent } 
-                  : reply
+                reply.id === replyId ? { ...reply, content: newContent } : reply
               ),
             };
           }
@@ -111,6 +110,28 @@ export default function CommentProvider({ children }) {
       );
     }
   };
+
+  const updateCommentScore = async (commentId, delta) => {  
+  const updated = await apiUpdateCommentScore(commentId, delta);
+  if (updated) {
+    setComments((prev) =>
+      prev.map((comment) => (comment.id === commentId ? updated : comment))
+    );
+  }
+};
+
+const updateReplyScore = async (commentId, replyId, delta) => {
+  
+  const updated = await apiUpdateReplyScore(commentId, replyId, delta);
+  if (updated) {
+    setComments((prev) =>
+      prev.map((comment) =>
+        comment.id === commentId ? updated : comment
+      )
+    );
+  }
+};
+
 
   return (
     <CommentContext.Provider
@@ -122,6 +143,8 @@ export default function CommentProvider({ children }) {
         addReply,
         deleteReplyData,
         editReply,
+        updateCommentScore,
+        updateReplyScore
       }}
     >
       {children}

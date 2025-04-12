@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'https://interactive-comments-section-wua8.onrender.com';
 
 export const getData = async () => {
   try {
@@ -15,7 +15,6 @@ export const getData = async () => {
 export const addComment = async (newComment) => {
   try {
     const response  = await axios.post(`${API_BASE_URL}/create`, newComment)
-    console.log(newComment)
     return response.data;
   } catch(error) {
     console.log(error)
@@ -66,3 +65,25 @@ export const apiEditReply = async (newContent, commentId, replyId) => {
     console.log(error);
   }
 }
+
+export const apiUpdateCommentScore = async (commentId, delta) => {
+  try {
+    const res = await axios.patch(`${API_BASE_URL}/score/comment/${commentId}`, {
+      delta,
+    });
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const apiUpdateReplyScore = async (commentId, replyId, delta) => {
+  try {
+    const res = await axios.patch(`${API_BASE_URL}/score/reply/${commentId}/${replyId}`, {
+      delta,
+    });
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

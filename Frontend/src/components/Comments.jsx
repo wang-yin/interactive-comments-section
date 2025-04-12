@@ -25,7 +25,7 @@ function Comments() {
                     reply.user.username === currentUser ? (
                       <MyReply key={reply.id} reply={reply} commentId={comment.id}/>
                     ) : (
-                      <Reply key={reply.id} reply={reply} commentId={comment.id}/>
+                      <Reply key={reply.id} reply={reply} comment={comment}/>
                     )
                   )}
                 </>
