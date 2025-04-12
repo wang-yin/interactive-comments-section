@@ -4,10 +4,6 @@ import minus from "/images/icon-minus.svg";
 import { useState, useContext } from "react";
 import { CommentContext } from "./store/CommentContext";
 import ReplyTextarea from "./ReplyTextarea";
-import dayjs from "dayjs"
-import relativeTime from 'dayjs/plugin/relativeTime'
-
-dayjs.extend(relativeTime)
 
 function Reply({ reply, comment }) {
   const [isReply, setIsReply] = useState(false);
@@ -40,7 +36,7 @@ function Reply({ reply, comment }) {
                   {reply.user.username}
                 </a>
                 <p className="text-Grayish-Blue font-fw-400">
-                  {dayjs(reply.createdAt).fromNow()}
+                  {reply.createdAt}
                 </p>
                 <div
                   className="hidden lg:flex lg:items-center lg:gap-[.5rem] lg:ml-auto cursor-pointer hover:opacity-60"

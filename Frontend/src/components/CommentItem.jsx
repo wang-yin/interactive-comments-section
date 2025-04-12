@@ -2,10 +2,7 @@ import replyicon from "/images/icon-reply.svg";
 import ReplyTextarea from "./ReplyTextarea";
 import { CommentContext } from "./store/CommentContext";
 import { useState, useContext } from "react";
-import dayjs from "dayjs"
-import relativeTime from 'dayjs/plugin/relativeTime'
 
-dayjs.extend(relativeTime)
 
 function CommentItem({ comment }) {
   const [isReply, setIsReply] = useState(false)
@@ -49,7 +46,7 @@ function CommentItem({ comment }) {
             <img src={comment.user.image.webp} alt="avatars"></img>
           </div>
           <a href="#" className="font-fw-500">{comment.user.username}</a>
-          <p className="text-Grayish-Blue font-fw-400">{dayjs(comment.createdAt).fromNow()}</p>
+          <p className="text-Grayish-Blue font-fw-400">{comment.createdAt}</p>
           <div className="hidden lg:flex lg:items-center lg:gap-[.5rem] lg:ml-auto cursor-pointer hover:opacity-60" onClick={() => setIsReply(prev => !prev)}>
             <div>
               <img src={replyicon} alt="reply"></img>
