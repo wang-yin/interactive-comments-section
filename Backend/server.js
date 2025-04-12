@@ -9,14 +9,24 @@ const corsOptions = {
   methods: ["GET", "POST", "PATCH", "DELETE"],
 }
 
-app.use(cors())
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
+
+app.use(cors(corsOptions))
 app.use(express.json());
 
 
 app.use('/', comments)
 
-app.get("/", (req, res) => {
-  res.send("API running!");
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
 });
 
 
