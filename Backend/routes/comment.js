@@ -16,7 +16,7 @@ const corsOptions = {
   methods: ["GET", "POST", "PATCH", "DELETE"],
 };
 
-router.use(cors(corsOptions));
+router.use(cors());
 
 
 // comment //

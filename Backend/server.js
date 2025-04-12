@@ -9,7 +9,7 @@ const corsOptions = {
   methods: ["GET", "POST", "PATCH", "DELETE"],
 }
 
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(express.json());
 
 
