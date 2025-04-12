@@ -7,7 +7,6 @@ const cors = require('cors')
 const corsOptions = {
   origin: [
     "https://yininteractive-comments-section.netlify.app",
-    "http://localhost:8888"
   ],
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -23,12 +22,6 @@ app.use(express.json());
 app.use('/', comments)
 
 
-const PORT = process.env.PORT || 3000;
-
-app.get("/", (req, res) => {
-  console.log("Origin:", req.headers.origin); // 看誰在打你 API
-  res.send("API running!");
-});
 
 
 
