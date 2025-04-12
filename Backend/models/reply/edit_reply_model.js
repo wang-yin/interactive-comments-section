@@ -5,7 +5,7 @@ module.exports = async function editReply (commentId, replyId, editData) {
     const updated = await db.findOneAndUpdate(
       {
         id: commentId,
-        "replies.id": replyId, // 鎖定內層 reply
+        "replies.id": replyId, 
       },
       {
         $set: {

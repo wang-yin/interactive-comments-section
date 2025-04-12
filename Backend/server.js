@@ -5,18 +5,14 @@ require('./models/connection_db')
 const comments = require("./routes/comment")
 const cors = require('cors')
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: ["https://yininteractive-comments-section.netlify.app"],
 }
 
-
-const port = process.env.PORT
 
 app.use(express.json());
 
 app.use(cors(corsOptions))
 app.use('/', comments)
 
-app.listen(port, () => {
-  console.log(`Server started on http://localhost:${port}`);
-})
+
 
