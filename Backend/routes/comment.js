@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const cors = require("cors");
 const getCommentsData = require("../controllers/get_comments")
 const addComment = require("../controllers/add_comment")
 const deleteComment = require("../controllers/delete_comment")
@@ -9,6 +10,13 @@ const deleteReply = require("../controllers/delete_reply")
 const editReply = require("../controllers/edit_reply")
 const updateReplyScore = require("../controllers/updateReplyScore")
 const updateCommentScore = require("../controllers/updateCommentScore")
+
+const corsOptions = {
+  origin: "https://yininteractive-comments-section.netlify.app",
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+};
+
+router.use(cors(corsOptions));
 
 
 // comment //
